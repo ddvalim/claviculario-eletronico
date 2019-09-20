@@ -1,0 +1,28 @@
+class Veiculos:
+    def __init__(self, placa: str, modelo: str, marca: str, ano: int, km: int):
+        self.__placa = placa
+        self.__modelo = modelo
+        self.__marca = marca
+        self.__ano = ano
+        self.__km = km
+
+    @property
+    def placa(self):
+        return self.__placa
+    @property
+    def modelo(self):
+        return self.__modelo
+    @property
+    def marca(self):
+        return self.__marca
+    @property
+    def ano(self):
+        return self.__ano
+    @property
+    def km(self):
+        return self.__km
+
+    ### METODOS ###
+
+    def atualizaKm(self, kmAndados):
+        self.__km += kmAndados
