@@ -1,0 +1,46 @@
+from Veiculo import veiculo
+class Funcionario:
+    def __init__(self, matricula: int, nome: str, dataDeNascimento: str, telefone: int, cargo: str):
+        self.__matricula = matricula
+        self.__nome = nome
+        self.__dataDeNascimento = dataDeNascimento
+        self.__telefone = telefone
+        self.__cargo = cargo
+        self.__veiculosAutorizados = []
+
+    @property
+    def matricula(self):
+        return self.__matricula
+    @property
+    def nome(self):
+        return self.__nome
+    @property
+    def dataDeNascimento(self):
+        return self.__dataDeNascimento
+    @property
+    def telefone(self):
+        return self.__telefone
+    @property
+    def cargo(self):
+        return self.__cargo
+    @property
+    def veiculosAutorizados(self):
+        return self.__veiculosAutorizados
+
+    ### METODOS ###
+
+    def acrescentaVeiculo(self, veiculo):
+        if not isinstance(veiculo, Veiculo):
+            return
+        if veiculo not in self.__veiculosAutorizados:
+            self.veiculosAutorizados.append(veiculo)
+        else:
+            raise Exception("Veiculo ja autorizado")
+
+    def retiraVeiculo(self, veiculo):
+        if not isinstance(veiculo, Veiculo):
+            return
+        if veiculo in self.__veiculosAutorizados:
+            self.veiculosAutorizados.remove(veiculo)
+        else:
+            raise Exception("Veiculo nao presente na lista")
