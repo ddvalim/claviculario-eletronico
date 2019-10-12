@@ -5,8 +5,6 @@ from Validators.Funcionario import validator
 
 class Funcionario():
     def __init__(self, matricula, nome, data_nascimento, telefone, cargo):
-        self.__validator = validator
-        self.__validate_data(matricula=matricula, nome=nome, data_nascimento=data_nascimento, telefone=telefone, cargo=cargo)
         self.__matricula = matricula
         self.__nome = nome
         self.__data_nascimento = data_nascimento
@@ -14,18 +12,6 @@ class Funcionario():
         self.__cargo = cargo
         self.__veiculos_cadastrados = {}
     
-    def __validate_data(self, *args, **kwargs):
-        
-        for k,v in kwargs.items():
-            if not isinstance(v, self.__validator[k]):
-                raise Exception(f'{k} is not instance of {self.__validator[k]}')
-            if self.__validator[k] == str:
-                if len(v) == 0:
-                    raise Exception('String cannot be empty')
-            if self.__validator[k] == datetime.date:
-                if v > datetime.datetime.now().date() :
-                    raise Exception('Date cannot be bigger than now') 
-
     @property
     def matricula(self):
         return self.__matricula
