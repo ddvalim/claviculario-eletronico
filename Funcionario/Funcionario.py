@@ -11,6 +11,7 @@ class Funcionario():
         self.__telefone = telefone
         self.__cargo = cargo
         self.__veiculos_cadastrados = {}
+        self.__bloqueado = False
     
     @property
     def matricula(self):
@@ -36,6 +37,14 @@ class Funcionario():
     def matricula(self, matricula):
         self.__matricula = matricula
 
+    @property
+    def bloqueado(self):
+        return self.__bloqueado
+
+    @bloqueado.setter
+    def bloqueado(self, bloqueado):
+        self.__bloqueado = bloqueado
+
     @nome.setter
     def nome(self, nome):
         self.__nome = nome
@@ -56,5 +65,6 @@ class Funcionario():
         if isinstance(veiculo, Veiculo):
             self.__veiculos_cadastrados[veiculo.placa] = veiculo
 
-    def adciona_veiculo_cadastrado(self, placa):
+    def remove_veiculo_cadastrado(self, placa):
         del self.__veiculos_cadastrados[placa]
+    
