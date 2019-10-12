@@ -83,3 +83,14 @@ class TelaFuncionarios(AbstractTela):
         print(f'Tem certeza que deseja deletar o funcionário -> {funcionario.nome}?')
         print('s - sim, n - nao')
         return True if input().lower() == 's' else False
+
+    def detalhes_do_funcionario(self, func):
+        print('*'*30)
+        print('Funcionário: ')
+        for k in self.__validator.keys():
+            repres = k.title() if k != 'data_nascimento' else 'Data de nascimento'
+            print(f'{repres} : {getattr(func, k)}')
+        print(f'Bloqueado : {func.bloqueado}')
+        print('*'*30)
+        print('Pressione enter para continuar')
+        input()
