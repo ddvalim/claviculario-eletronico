@@ -1,4 +1,4 @@
-from entradaInvalidaException import EntradaInvalidaException
+from Exceptions.entradaInvalidaException import EntradaInvalidaException
 
 
 class Veiculo:
