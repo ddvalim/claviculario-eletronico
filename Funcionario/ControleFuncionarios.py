@@ -1,6 +1,9 @@
 import pickle
 import os
 
+from Exceptions.entradaInvalidaException import EntradaInvalidaException
+from Exceptions.FuncionarioNaoExisteException import FuncionarioNaoExisteException
+from Exceptions.JaExisteFuncionarioComEssaMatriculaException import JaExisteFuncionarioComEssaMatriculaException
 from .TelaFuncionarios import TelaFuncionarios
 from .Funcionario import Funcionario
 
@@ -19,7 +22,7 @@ class ControleFuncionarios():
         if tela['matricula'] not in self.__funcionarios.keys():
             func = Funcionario(**tela)
         else:
-            return self.__tela_funcionarios.excecao('Já existe um funcionário cadastrado com essa matrícula')
+            raise JaExisteFuncionarioComEssaMatriculaException()
         self.__funcionarios[func.matricula] = func
         self.__adiciona_ao_banco()
 
@@ -27,13 +30,17 @@ class ControleFuncionarios():
         pickle.dump(self.__funcionarios, open('funcionarios.pkl', 'wb'))
 
     def autentica_funcionario(self):
-        matricula = self.__tela_funcionarios.autentica_funcionario()
-        try:
-            matricula = int(matricula)
-        except ValueError:
-            return self.__tela_funcionarios.excecao('Valor inválido para a matrícula')
+        invalid = True
+        while invalid:
+            matricula = self.__tela_funcionarios.autentica_funcionario()
+            try:
+                matricula = int(matricula)
+            except ValueError:
+                return self.__tela_funcionarios.excecao(str(EntradaInvalidaException()))
+            else:
+                invalid = False
         if matricula not in self.__funcionarios.keys():
-            return self.__tela_funcionarios.excecao('Não existe funcionário com essa matrícula')
+            raise FuncionarioNaoExisteException()
         else: 
             return self.__funcionarios[matricula]
 
