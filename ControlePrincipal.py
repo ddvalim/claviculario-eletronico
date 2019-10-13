@@ -7,9 +7,9 @@ from EOFError import EOFErrorException
 class ControlePrincipal:
 
     def __init__(self):
-        self.__controle_veiculo = ControleVeiculo
-        self.__controle_funcionario = ControleFuncionarios
-        self.__controle_movimentacao = ControleMovimentacao
+        self.__controle_veiculo = ControleVeiculo()
+        self.__controle_funcionario = ControleFuncionarios(self.__controle_veiculo)
+        self.__controle_movimentacao = ControleMovimentacao(self.__controle_veiculo, self.__controle_funcionario)
 
     def inicializar(self):
         while True:
