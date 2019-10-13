@@ -1,12 +1,12 @@
 from Veiculo import Veiculo
-# from telaVeiculo import telaVeiculo
+from telaVeiculo import telaVeiculo
 
 
 class ControleVeiculo:
 
     def __init__(self):
         self.__veiculos_cadastrados = {}
-        # self.__tela_veiculo = telaVeiculo
+        self.__tela_veiculo = telaVeiculo
 
     # GETTERS
 
