@@ -1,4 +1,2 @@
-from ControlePrincipal import ControlePrincipal 
-a= ControlePrincipal()
-a.inicializar()
-
+from ControlePrincipal import ControlePrincipal
+ControlePrincipal().inicializar()
