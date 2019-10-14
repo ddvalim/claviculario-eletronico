@@ -42,6 +42,15 @@ class TelaMovimentacoes(AbstractTela):
                 invalid = False        
         return { 1: filtro }
     
+    def acessos_por_tipo(self):
+        print('*'*30)
+        print('Infore um tipo de acesso:')
+        print('1 - acessos negados')
+        print('2 - acessos permitidos')
+        print('outro caractere - todos os acessos')
+        print('*'*30)
+        return input()
+        
 
     def relatorio(self, movimentacoes):
         print('Movimentações:')

@@ -39,6 +39,7 @@ class ControleVeiculo:
         if placa not in self.__veiculos_cadastrados.keys():
             self.__veiculos_cadastrados[placa] = Veiculo(**vec)
             self.__adiciona_ao_banco()
+            self.__tela_veiculo.sucesso('adição de veiculo')
 
     def atualiza_veiculo(self):
         veiculo = self.verifica_veiculo()
@@ -50,9 +51,9 @@ class ControleVeiculo:
             setattr(veiculo, k, v)
         self.__veiculos_cadastrados[veiculo.placa] = veiculo
         self.__adiciona_ao_banco()
+        self.__tela_veiculo.sucesso('atualização de veiculo')
 
-    def atualiza_km(self):
-        veiculo = self.verifica_veiculo()
+    def atualiza_km(self, veiculo):
         if veiculo is not None:
             km = self.__tela_veiculo.atualiza_km()
             veiculo.atualiza_km(km)
@@ -65,4 +66,5 @@ class ControleVeiculo:
         veiculo = self.verifica_veiculo()
         if veiculo is not None and self.__tela_veiculo.remove_veiculo(veiculo):
             del self.__veiculos_cadastrados[veiculo.placa]
+            self.__tela_veiculo.sucesso('deleção de veiculo')
 

@@ -92,8 +92,7 @@ class ControlePrincipal:
                     if reopcao == '0':
                         self.__controle_movimentacao.filtra_movimentacoes()
                     elif reopcao == '1':
-                        pass
-                        # self.__controle_movimentacao.()
+                        self.__controle_movimentacao.acessos_por_tipo()
                     elif reopcao == '2':
                         self.__controle_movimentacao.retira_veiculo()
                     elif reopcao == '3':

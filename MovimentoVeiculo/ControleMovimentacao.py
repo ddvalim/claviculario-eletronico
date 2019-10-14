@@ -19,14 +19,23 @@ class ControleMovimentacao():
             self.__movimentacoes = pickle.load(open('movimentacoes.pkl', 'rb'))
         else: 
             self.__movimentacoes = []
-        self.__acessos_negados = []
-        self.__acessos_permitidos = []
+    
+    @property
+    def acessos_negados(self):
+        neg = []
         for movimentacao in self.__movimentacoes:
             if movimentacao.motivo_negacao is not None:
-                self.__acessos_negados.append(movimentacao)
-            else:
-                self.__acessos_permitidos.append(movimentacao)
+                neg.append(movimentacao)
+        return neg
     
+    @property
+    def acessos_permitidos(self):
+        per = []
+        for movimentacao in self.__movimentacoes:
+            if movimentacao.motivo_negacao is None:
+                per.append(movimentacao)
+        return per
+        
 
     def __adiciona_ao_banco(self):
         pickle.dump(self.__movimentacoes, open('movimentacoes.pkl', 'wb'))
@@ -37,6 +46,7 @@ class ControleMovimentacao():
             veiculo = None
             if funcionario is None:
                     self.__tela_movimentacoes.excecao('Funcionario com essa matrícula não foi achado')
+                    return
             if funcionario.bloqueado == True:
                 raise FuncionarioBloqueadoException()
             veiculo = self.__controle_veiculo.verifica_veiculo()
@@ -59,18 +69,17 @@ class ControleMovimentacao():
                 raise VeiculoJaRetiradoException()
             else:
                 mov = MovimentoVeiculo(veiculo=veiculo, funcionario=funcionario, tipo=0)
-                self.__acessos_permitidos.append(mov)
                 self.__movimentacoes.append(mov)
                 self.__adiciona_ao_banco()
+                self.__tela_movimentacoes.sucesso('retirada de veículo')
         except Exception as ex:
             func_negados = []
-            for movimentacao in self.__acessos_negados:
+            for movimentacao in self.acessos_negados:
                 if movimentacao.funcionario.matricula == funcionario.matricula:
                     func_negados.append(movimentacao)
             if len(func_negados) >= 3 and funcionario.bloqueado == False:
                 self.__controle_funcionarios.bloqueia_funcionario(funcionario.matricula)
             mov = MovimentoVeiculo(veiculo, funcionario, 0, ex.motivo_negacao)
-            self.__acessos_negados.append(mov)
             self.__movimentacoes.append(mov)
             self.__adiciona_ao_banco()
             return self.__tela_movimentacoes.excecao(str(ex))
@@ -106,17 +115,31 @@ class ControleMovimentacao():
             elif mov_latest.funcionario.matricula != funcionario.matricula:
                 raise FuncionarioNaoRetirouETentouDevolverException()
             else:
-                self.__controle_veiculo.atualiza_km()
+                self.__controle_veiculo.atualiza_km(veiculo)
                 mov = MovimentoVeiculo(veiculo=veiculo, funcionario=funcionario, tipo=1)
-                self.__acessos_permitidos.append(mov)
                 self.__movimentacoes.append(mov)
                 self.__adiciona_ao_banco()
+                self.__tela_movimentacoes.sucesso('devolução de veículo')
         except Exception as ex:
+            func_negados = []
+            for movimentacao in self.acessos_negados:
+                if movimentacao.funcionario.matricula == funcionario.matricula:
+                    func_negados.append(movimentacao)
+            if len(func_negados) >= 3 and funcionario.bloqueado == False:
+                self.__controle_funcionarios.bloqueia_funcionario(funcionario.matricula)
             mov = MovimentoVeiculo(veiculo, funcionario, 1, ex.motivo_negacao)
-            self.__acessos_negados.append(mov)
             self.__movimentacoes.append(mov)
             self.__adiciona_ao_banco()
             return self.__tela_movimentacoes.excecao(str(ex))
+    
+    def acessos_por_tipo(self):
+        tipo = self.__tela_movimentacoes.acessos_por_tipo()
+        if tipo == '1':
+            self.__tela_movimentacoes.relatorio(self.acessos_negados)
+        elif tipo == '2':
+            self.__tela_movimentacoes.relatorio(self.acessos_permitidos)
+        else:
+            self.__tela_movimentacoes.relatorio(self.__movimentacoes)
     
     def filtra_movimentacoes(self):
         filtros = self.__tela_movimentacoes.filtra_movimentacoes()

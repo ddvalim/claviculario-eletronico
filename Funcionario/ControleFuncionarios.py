@@ -35,14 +35,10 @@ class ControleFuncionarios():
             matricula = self.__tela_funcionarios.autentica_funcionario()
             try:
                 matricula = int(matricula)
+                invalid = False
             except ValueError:
                 return self.__tela_funcionarios.excecao(str(EntradaInvalidaException()))
-            else:
-                invalid = False
-        if matricula not in self.__funcionarios.keys():
-            raise FuncionarioNaoExisteException()
-        else: 
-            return self.__funcionarios[matricula]
+        return self.__funcionarios[matricula] if matricula in self.__funcionarios.keys() else None
 
     def funcionarios_cadastrados(self):
         self.__tela_funcionarios.funcionarios_cadastrados(self.__funcionarios.values())
@@ -54,12 +50,14 @@ class ControleFuncionarios():
             setattr(func, k, v)
         self.__funcionarios[func.matricula] = func
         self.__adiciona_ao_banco()
+        self.__tela_funcionarios.sucesso('atualização de funcionário')
 
     def deleta_funcionario(self):
         func = self.autentica_funcionario()
         if func is not None and self.__tela_funcionarios.deleta_funcionario(func):
             del self.__funcionarios[func.matricula]
             self.__adiciona_ao_banco()
+            self.__tela_funcionarios.sucesso('deleção de funcionário')
 
     def bloqueia_funcionario(self, matricula):
         func = self.__funcionarios[matricula]
@@ -72,12 +70,14 @@ class ControleFuncionarios():
         veiculo = self.__controle_veiculo.verifica_veiculo()
         func.adiciona_veiculo_cadastrado(veiculo)
         self.__adiciona_ao_banco()
+        self.__tela_funcionarios.sucesso('adição de veiculo ao funcionário')
 
     def deleta_veiculo_funcionario(self):
         func = self.autentica_funcionario()
         veiculo = self.__controle_veiculo.verifica_veiculo()
         func.remove_veiculo_cadastrado(veiculo)
         self.__adiciona_ao_banco()
+        self.__tela_funcionarios.sucesso('deleção de veiculo ao funcionário')
 
     def detalhes_do_funcionario(self):
         func = self.autentica_funcionario()
