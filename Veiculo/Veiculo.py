@@ -3,7 +3,7 @@ from Exceptions.entradaInvalidaException import EntradaInvalidaException
 
 class Veiculo:
 
-    def __init__(self, placa: str, modelo: str, marca: str, ano: int, km: int):
+    def __init__(self, placa: str, modelo: str, marca: str, ano: int, km: float):
         self.__placa = placa
         self.__modelo = modelo
         self.__marca = marca
@@ -46,7 +46,7 @@ class Veiculo:
     # METODOS
 
     def atualiza_km(self, km_andados):
-        if isinstance(km_andados, str):
-            raise EntradaInvalidaException()
+        if not isinstance(km_andados, float):
+            km_andados = float(km_andados)
         self.__km += km_andados
         return "Quilometragem atualizada -  Total de quilometros andados: " + str(self.__km)

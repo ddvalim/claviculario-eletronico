@@ -91,6 +91,9 @@ class TelaFuncionarios(AbstractTela):
             repres = k.title() if k != 'data_nascimento' else 'Data de nascimento'
             print(f'{repres} : {getattr(func, k)}')
         print(f'Bloqueado : {func.bloqueado}')
+        print('Veiculos cadastrados:')
+        for veic in func.veiculos_cadastrados:
+            print(f'placa: {veic.placa} -  marca: {veic.marca} - modelo: {veic.modelo} ')
         print('*'*30)
         print('Pressione enter para continuar')
         input()

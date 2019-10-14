@@ -17,11 +17,11 @@ class TelaMovimentacoes(AbstractTela):
         except Exception:
             self.excecao('Valor Inválido')
         dict_value = {
-            1: self.filtra_motivo_de_negacao()
+            1: self.filtra_motivo_de_negacao
         }
         ret = None
         if res in dict_value.keys():
-            ret = dict_value[res]
+            ret = dict_value[res]()
         else:
             ret = res
         return(ret)

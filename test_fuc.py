@@ -1,8 +1,4 @@
-from Funcionario.Funcionario import Funcionario
-from Funcionario.ControleFuncionarios import ControleFuncionarios
-import datetime
+from ControlePrincipal import ControlePrincipal 
+a= ControlePrincipal()
+a.inicializar()
 
-a = ControleFuncionarios('a')
-# a.adiciona_funcionario()
-a.funcionarios_cadastrados()
-a.atualiza_funcionario()

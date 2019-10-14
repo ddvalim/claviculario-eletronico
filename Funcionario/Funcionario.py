@@ -16,7 +16,13 @@ class Funcionario():
     @property
     def matricula(self):
         return self.__matricula
-
+    
+    @property
+    def veiculos_cadastrados(self):
+        return self.__veiculos_cadastrados.values()
+    
+    def placas_veiculos(self):
+        return self.__veiculos_cadastrados.keys()
     @property
     def nome(self):
         return self.__nome
@@ -66,5 +72,6 @@ class Funcionario():
             self.__veiculos_cadastrados[veiculo.placa] = veiculo
 
     def remove_veiculo_cadastrado(self, placa):
-        del self.__veiculos_cadastrados[placa]
+        if placa in self.__veiculos_cadastrados.keys():
+            del self.__veiculos_cadastrados[placa]
     

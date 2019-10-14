@@ -18,13 +18,13 @@ class ControleFuncionarios():
             self.__funcionarios = {}
 
     def adiciona_funcionario(self):
-        tela = self.__tela_funcionarios.adiciona_funcionario()
-        if tela['matricula'] not in self.__funcionarios.keys():
-            func = Funcionario(**tela)
+        func = self.__tela_funcionarios.adiciona_funcionario()
+        if func['matricula'] not in self.__funcionarios.keys():
+            funcionario = Funcionario(**func)
+            self.__funcionarios[funcionario.matricula] = funcionario
+            self.__adiciona_ao_banco()
         else:
-            raise JaExisteFuncionarioComEssaMatriculaException()
-        self.__funcionarios[func.matricula] = func
-        self.__adiciona_ao_banco()
+            self.__tela_funcionarios.excecao('Já existe um funcionário com essa matrícula')
 
     def __adiciona_ao_banco(self):
         pickle.dump(self.__funcionarios, open('funcionarios.pkl', 'wb'))
@@ -57,23 +57,27 @@ class ControleFuncionarios():
 
     def deleta_funcionario(self):
         func = self.autentica_funcionario()
-        response = self.__tela_funcionarios.deleta_funcionario(func)
-        if response:
+        if func is not None and self.__tela_funcionarios.deleta_funcionario(func):
             del self.__funcionarios[func.matricula]
-        self.__adiciona_ao_banco()
+            self.__adiciona_ao_banco()
 
     def bloqueia_funcionario(self, matricula):
-        self.__funcionarios[matricula].bloqueado == True
+        func = self.__funcionarios[matricula]
+        func.bloqueado = True
+        self.__funcionarios[matricula] = func
+        self.__adiciona_ao_banco()
 
     def adiciona_veiculo_funcionario(self):
         func = self.autentica_funcionario()
-        veiculo = self.__controle_veiculo.verifica_veiculo('')
+        veiculo = self.__controle_veiculo.verifica_veiculo()
         func.adiciona_veiculo_cadastrado(veiculo)
+        self.__adiciona_ao_banco()
 
     def deleta_veiculo_funcionario(self):
         func = self.autentica_funcionario()
-        veiculo = self.__controle_veiculo.verifica_veiculo('')
-        func.deleta_veiculo_cadastrado(veiculo)
+        veiculo = self.__controle_veiculo.verifica_veiculo()
+        func.remove_veiculo_cadastrado(veiculo)
+        self.__adiciona_ao_banco()
 
     def detalhes_do_funcionario(self):
         func = self.autentica_funcionario()
