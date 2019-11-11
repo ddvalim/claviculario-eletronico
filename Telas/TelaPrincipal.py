@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 from Abstracts.AbsctractTela import AbstractTela
 
 
-class Telinha(AbstractTela):
+class TelaPrincipal(AbstractTela):
     def __init__(self):
         layout = [
          [sg.Text('O que você quer fazer?')],

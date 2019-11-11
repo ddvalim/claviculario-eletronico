@@ -1,7 +1,7 @@
 from Veiculo.ControleVeiculo import ControleVeiculo
 from Funcionario.ControleFuncionarios import ControleFuncionarios
 from MovimentoVeiculo.ControleMovimentacao import ControleMovimentacao
-from exemplotela import Telinha
+from Telas.TelaPrincipal import TelaPrincipal
 
 class ControlePrincipal:
 
@@ -12,7 +12,7 @@ class ControlePrincipal:
 
     def inicializar(self):
         while True:
-            tela_principal = Telinha()
+            tela_principal = TelaPrincipal()
             opcao, xableize = tela_principal.show()
             tela_principal.close()
             print(opcao)
