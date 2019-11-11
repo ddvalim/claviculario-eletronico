@@ -1,6 +1,7 @@
 from Veiculo.ControleVeiculo import ControleVeiculo
 from Funcionario.ControleFuncionarios import ControleFuncionarios
 from MovimentoVeiculo.ControleMovimentacao import ControleMovimentacao
+from exemplotela import Telinha
 
 class ControlePrincipal:
 
@@ -10,20 +11,11 @@ class ControlePrincipal:
         self.__controle_movimentacao = ControleMovimentacao(self.__controle_veiculo, self.__controle_funcionario)
 
     def inicializar(self):
-        print("Bem-vindo ao sistema de controle do uso de veículos pelos funcionários da empresa X")
-        print('*' * 30)
         while True:
-            print('*' * 30)
-            print('Selecione a ação que deseja tomar')
-            print('*' * 30)
-            print(' ')
-            print('0 - Gerenciar funcionário')
-            print('1 - Gerenciar veículos')
-            print('2 - Gerenciar movimentações')
-            print('Outro caracter - sair')
-
-            opcao = input()
-
+            tela_principal = Telinha()
+            opcao, xableize = tela_principal.show()
+            tela_principal.close()
+            print(opcao)
             if opcao != '0' and opcao != '1' and opcao != '2':
                 exit()
             else:
@@ -39,7 +31,7 @@ class ControlePrincipal:
                     print('Outro caracter - voltar ao menu principal')
                     print('*' * 30)
             
-                    reopcao = input()
+                    reopcao = None
 
                     if reopcao == '0':
                         self.__controle_funcionario.adiciona_funcionario()
@@ -66,7 +58,7 @@ class ControlePrincipal:
                     print('Outro caracter - voltar ao menu principal')
                     print('*' * 30)
             
-                    reopcao = input()
+                    reopcao = None
 
                     if reopcao == '0':
                         self.__controle_veiculo.lista_veiculos()
@@ -87,7 +79,7 @@ class ControlePrincipal:
                     print('3 - Devolver veículo')
                     print('*' * 30)
 
-                    reopcao = input()
+                    reopcao = None
 
                     if reopcao == '0':
                         self.__controle_movimentacao.filtra_movimentacoes()
