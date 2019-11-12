@@ -1,7 +1,7 @@
 from Veiculo.ControleVeiculo import ControleVeiculo
 from Funcionario.ControleFuncionarios import ControleFuncionarios
 from MovimentoVeiculo.ControleMovimentacao import ControleMovimentacao
-from Telas.TelaPrincipal import TelaPrincipal
+from ControlePrincipal.TelaPrincipal import TelaPrincipal
 
 class ControlePrincipal:
 

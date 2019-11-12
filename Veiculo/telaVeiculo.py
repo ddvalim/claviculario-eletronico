@@ -14,7 +14,7 @@ class telaVeiculo(AbstractTela):
         for veiculo in veiculos:
             print(f'placa: {veiculo.placa} - marca: {veiculo.marca} - modelo: {veiculo.modelo}')
         print('\n'*5)
-        print('Pressione enter apra continuar:')
+        print('Pressione enter para continuar:')
         input()
 
     def detalhes_veiculo(self, veiculo):
