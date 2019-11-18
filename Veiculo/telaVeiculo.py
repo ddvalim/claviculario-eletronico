@@ -99,7 +99,7 @@ class telaVeiculo(AbstractTela):
         if a[0].lower() == 's':
             b = self.sucesso('Veículo deletado com sucesso')
         else:
-            None
+            b = self.excecao('Ação cancelada')
 
     def atualiza_km(self):
         while True:
