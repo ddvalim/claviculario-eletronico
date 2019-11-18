@@ -18,6 +18,8 @@ class ControleVeiculo:
 
     def detalhes_veiculo(self):
         veiculo = self.verifica_veiculo()
+        if veiculo is None:
+            return self.__tela_veiculo.excecao('Este veículo não existe')
         self.__tela_veiculo.detalhes_veiculo(veiculo)
 
     def lista_veiculos(self):
