@@ -26,28 +26,38 @@ class telaVeiculo(AbstractTela):
         self.__window.Close()
 
     def lista_veiculos(self, veiculos):
-        print('*' * 30)
-        print('Listando veículos...')
-        print('*' * 30)
-
+        lista_vel = []
         for veiculo in veiculos:
-            print(f'placa: {veiculo.placa} - marca: {veiculo.marca} - modelo: {veiculo.modelo}')
-        print('\n'*5)
-        print('Pressione enter para continuar:')
-        input()
-
+            lista_vel.append((f'placa: {veiculo.placa} - marca: {veiculo.marca} - modelo: {veiculo.modelo}'))
+        layout_tela_vel = [
+            [sg.Text('Lista de veículos cadastrados')],
+            [sg.Text('*'*15)],
+            [sg.Text(lista_vel)],
+            [sg.Button('Sair')]
+        ]
+        tela_lista_vel = sg.Window('Lista Veículos').layout(layout_tela_vel)
+        tela_lista_vel.Read()
+        tela_lista_vel.Close()
 
     def detalhes_veiculo(self, veiculo):
-        print('*'*30)
-        print(f'Veiculo - {veiculo.placa}')
-        print(f'Modelo: {veiculo.modelo}')
-        print(f'Marca: {veiculo.marca}')
-        print(f'Ano: {veiculo.ano}')
-        print(f'Kilometragem: {veiculo.km}')
-        print('\n'*5)
-        print('Pressione enter para continuar:')
+        detalhes_vel = []
+        detalhes_vel.append((f'Veiculo - {veiculo.placa}'))
+        detalhes_vel.append((f'Modelo: {veiculo.modelo}'))
+        detalhes_vel.append((f'Marca: {veiculo.marca}'))
+        detalhes_vel.append((f'Ano: {veiculo.ano}'))
+        detalhes_vel.append((f'Kilometragem: {veiculo.km}'))
 
-        return input()
+        layout_detalhes_vel2 = [
+            [sg.Text('Detalhes do veículo:')],
+            [sg.Text('*'*15)],
+            [sg.Text(detalhes_vel)],
+            [sg.Button('Sair')]
+        ]
+        tela_detalhes_vel2 = sg.Window('Detalhes do veículo').layout(layout_detalhes_vel2)
+        tela_detalhes_vel2.Read()
+        tela_detalhes_vel2.Close()
+
+        #Nao esta passando a placa informada em verifica veiculo para detalhe veiculo
 
     def adiciona_veiculo(self):
         print('*' * 30)
@@ -63,7 +73,7 @@ class telaVeiculo(AbstractTela):
                 try:
                     inpu = self.__validator[k](inpu)
                 except Exception:
-                    print('valor invalido para o campo')
+                    print('valor inválido para o campo')
                 if isinstance(inpu, self.__validator[k]):  
                     if self.__validator[k] == str:
                         if len(inpu) != 0:
@@ -74,10 +84,14 @@ class telaVeiculo(AbstractTela):
         return veic
 
     def verifica_veiculo(self):
-        print('*' * 30)
-        print('Informe a placa do Veiculo')
-        print('*' * 30)
-        return input()
+        layout_detalhes_vel1 = [
+            [sg.Text('Digite a placa do veículo:')],
+            [sg.Input()],
+            [sg.Button('Buscar')]
+        ]
+        tela_detalhes_vel1 = sg.Window('Detalhes do veículo').layout(layout_detalhes_vel1)
+        botao, detalhe = tela_detalhes_vel1.Read()
+        tela_detalhes_vel1.Close()
 
     def remove_veiculo(self, veiculo):
         print('*'*30)
