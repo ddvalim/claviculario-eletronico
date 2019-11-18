@@ -1,7 +1,8 @@
 from Veiculo.ControleVeiculo import ControleVeiculo
 from Funcionario.ControleFuncionarios import ControleFuncionarios
 from MovimentoVeiculo.ControleMovimentacao import ControleMovimentacao
-from ControlePrincipal.TelaPrincipal import TelaPrincipal
+from .TelaPrincipal import TelaPrincipal
+from .Telas.MenuFuncionario import MenuFuncionario
 from Veiculo.telaVeiculo import telaVeiculo
 
 
@@ -16,6 +17,7 @@ class ControlePrincipal:
         while True:
             tela_principal = TelaPrincipal()
             tela_veiculo = telaVeiculo()
+            menu_funcionario = MenuFuncionario()
 
             opcao, xableize = tela_principal.show()
             tela_principal.close()
@@ -24,18 +26,8 @@ class ControlePrincipal:
                 exit()
             else:
                 if opcao == '0':
-                    print('*' * 30)
-                    print('0 - Adicionar funcionário')
-                    print('1 - Remover funcionário')
-                    print('2 - Atualizar funcionário')
-                    print('3 - Obter funcionários cadastrados')
-                    print('4 - Detalhes do funcionário')
-                    print('5 - Adicionar veículo à funcionário')
-                    print('6 - Remover veículo de funcionário')
-                    print('Outro caracter - voltar ao menu principal')
-                    print('*' * 30)
-
-                    reopcao = None
+                    reopcao, _ = menu_funcionario.show()
+                    menu_funcionario.close()
 
                     if reopcao == '0':
                         self.__controle_funcionario.adiciona_funcionario()
