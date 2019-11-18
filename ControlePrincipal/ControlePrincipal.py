@@ -17,7 +17,7 @@ class ControlePrincipal:
             tela_principal = TelaPrincipal()
             tela_veiculo = telaVeiculo()
 
-            opcao, xableize = tela_principal.show()
+            opcao, _ = tela_principal.show()
             tela_principal.close()
 
             if opcao != '0' and opcao != '1' and opcao != '2':

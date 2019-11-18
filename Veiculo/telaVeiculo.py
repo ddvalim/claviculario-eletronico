@@ -93,12 +93,14 @@ class telaVeiculo(AbstractTela):
         tela_detalhes_vel1.Close()
         return placa
 
+
     def remove_veiculo(self, veiculo):
-        print('*'*30)
-        print(f'Tem certeza que deseja deletar o veiculo -> {veiculo.placa}?')
-        print('s - sim, n - não')
-        return True if input().lower() == 's' else False
-        
+        a = self.confirmacao(f'Tem certeza que deseja deletar o veiculo -> {veiculo.placa}?')
+        if a[0].lower() == 's':
+            b = self.sucesso('Veículo deletado com sucesso')
+        else:
+            None
+
     def atualiza_km(self):
         while True:
             print('*' * 30)

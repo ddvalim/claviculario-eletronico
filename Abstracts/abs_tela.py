@@ -1,4 +1,6 @@
 from .Telas.telaExcecao import TelaExcecao
+from .Telas.telaConfimarcao import telaConfirmacao
+from .Telas.telaSucesso import telaSucesso
 
 class AbstractTela():
     def excecao(self, message):
@@ -7,10 +9,12 @@ class AbstractTela():
         tela.close()
 
     def sucesso(self, message):
-        print('*'*30)
-        print(f'Operação de {message} realizada com sucesso')
-        print('*'*30)
-        print('\n'*5)
-        print('pressione enter para voltar ao menu')
-        input()
-    
+        tela = telaSucesso(message)
+        tela.show()
+        tela.close()
+
+    def confirmacao(self, acao):
+        tela = telaConfirmacao(acao)
+        resposta = tela.show()
+        tela.close()
+        return resposta
