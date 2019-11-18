@@ -26,15 +26,14 @@ class telaVeiculo(AbstractTela):
         self.__window.Close()
 
     def lista_veiculos(self, veiculos):
-        lista_vel = []
-        for veiculo in veiculos:
-            lista_vel.append((f'placa: {veiculo.placa} - marca: {veiculo.marca} - modelo: {veiculo.modelo}'))
         layout_tela_vel = [
             [sg.Text('Lista de veículos cadastrados')],
             [sg.Text('*'*15)],
-            [sg.Text(lista_vel)],
-            [sg.Button('Sair')]
         ]
+        for veiculo in veiculos:
+            layout_tela_vel.append([sg.Text(f'placa: {veiculo.placa} - marca: {veiculo.marca} - modelo: {veiculo.modelo}\n')])
+        layout_tela_vel.append([sg.Button('Sair')])
+
         tela_lista_vel = sg.Window('Lista Veículos').layout(layout_tela_vel)
         tela_lista_vel.Read()
         tela_lista_vel.Close()
