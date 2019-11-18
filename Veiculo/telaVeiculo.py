@@ -57,7 +57,6 @@ class telaVeiculo(AbstractTela):
         tela_detalhes_vel2.Read()
         tela_detalhes_vel2.Close()
 
-        #Nao esta passando a placa informada em verifica veiculo para detalhe veiculo
 
     def adiciona_veiculo(self):
         print('*' * 30)
@@ -91,12 +90,14 @@ class telaVeiculo(AbstractTela):
         ]
         tela_detalhes_vel1 = sg.Window('Detalhes do veículo').layout(layout_detalhes_vel1)
         botao, detalhe = tela_detalhes_vel1.Read()
+        placa = detalhe[0]
         tela_detalhes_vel1.Close()
+        return placa
 
     def remove_veiculo(self, veiculo):
         print('*'*30)
         print(f'Tem certeza que deseja deletar o veiculo -> {veiculo.placa}?')
-        print('s - sim, n - nao')
+        print('s - sim, n - não')
         return True if input().lower() == 's' else False
         
     def atualiza_km(self):

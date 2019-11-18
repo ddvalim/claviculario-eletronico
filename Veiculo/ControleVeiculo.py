@@ -26,7 +26,6 @@ class ControleVeiculo:
     def __adiciona_ao_banco(self):
         pickle.dump(self.__veiculos_cadastrados, open('veiculos.pkl', 'wb'))
 
-
     def verifica_veiculo(self):
         placa = self.__tela_veiculo.verifica_veiculo()
         return self.__veiculos_cadastrados[placa] if placa in self.__veiculos_cadastrados.keys() else None
