@@ -14,8 +14,6 @@ class ControleVeiculo:
             self.__veiculos_cadastrados = {}    
         self.__tela_veiculo = telaVeiculo()
 
-    # GETTERS
-
     # METODOS
 
     def detalhes_veiculo(self):

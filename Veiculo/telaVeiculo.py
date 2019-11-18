@@ -1,10 +1,29 @@
+import PySimpleGUI as sg
 from Abstracts.abs_tela import AbstractTela
 from .Veiculo import Veiculo
 from Validators.Veiculo import validator
 
+
 class telaVeiculo(AbstractTela):
+
     def __init__(self):
         self.__validator = validator
+        layout = [
+            [sg.Text('O que você quer fazer?')],
+            [sg.Text('0 - Listar veículos cadastrados'), sg.Button('0')],
+            [sg.Text('1 - Adicionar veículo'), sg.Button('1')],
+            [sg.Text('2 - Detalhes do veiculo'), sg.Button('2')],
+            [sg.Text('3 - Remover veículo'), sg.Button('3')],
+            [sg.Text('4 - Atualizar veículo'), sg.Button('4')],
+            [sg.Text('Outro caracter - voltar ao menu principal')],
+            [sg.Button('Sair')]]
+        self.__window = sg.Window('Veículos').Layout(layout)
+
+    @property
+    def show(self):
+        return self.__window
+    def close(self):
+        self.__window.Close()
 
     def lista_veiculos(self, veiculos):
         print('*' * 30)
@@ -16,6 +35,7 @@ class telaVeiculo(AbstractTela):
         print('\n'*5)
         print('Pressione enter para continuar:')
         input()
+
 
     def detalhes_veiculo(self, veiculo):
         print('*'*30)

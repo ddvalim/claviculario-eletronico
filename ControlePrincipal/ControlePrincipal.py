@@ -2,6 +2,8 @@ from Veiculo.ControleVeiculo import ControleVeiculo
 from Funcionario.ControleFuncionarios import ControleFuncionarios
 from MovimentoVeiculo.ControleMovimentacao import ControleMovimentacao
 from ControlePrincipal.TelaPrincipal import TelaPrincipal
+from Veiculo.telaVeiculo import telaVeiculo
+
 
 class ControlePrincipal:
 
@@ -13,9 +15,11 @@ class ControlePrincipal:
     def inicializar(self):
         while True:
             tela_principal = TelaPrincipal()
+            tela_veiculo = telaVeiculo()
+
             opcao, xableize = tela_principal.show()
             tela_principal.close()
-            print(opcao)
+
             if opcao != '0' and opcao != '1' and opcao != '2':
                 exit()
             else:
@@ -30,7 +34,7 @@ class ControlePrincipal:
                     print('6 - Remover veículo de funcionário')
                     print('Outro caracter - voltar ao menu principal')
                     print('*' * 30)
-            
+
                     reopcao = None
 
                     if reopcao == '0':
@@ -49,16 +53,9 @@ class ControlePrincipal:
                         self.__controle_funcionario.deleta_veiculo_funcionario()
 
                 elif opcao == '1':
-                    print('*' * 30)
-                    print('0 - Listar veículos cadastrados')
-                    print('1 - Adicionar veículo')
-                    print('2 - Detalhes do veiculo')
-                    print('3 - Remover veículo')
-                    print('4 - Atualizar veículo')
-                    print('Outro caracter - voltar ao menu principal')
-                    print('*' * 30)
-            
-                    reopcao = None
+
+                    reopcao, var2 = tela_veiculo.show()
+                    tela_veiculo.close()
 
                     if reopcao == '0':
                         self.__controle_veiculo.lista_veiculos()

@@ -1,2 +1,2 @@
-from ControlePrincipal import ControlePrincipal
+from ControlePrincipal.ControlePrincipal import ControlePrincipal
 ControlePrincipal().inicializar()
