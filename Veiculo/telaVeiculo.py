@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 from Abstracts.abs_tela import AbstractTela
 from .Veiculo import Veiculo
 from Validators.Veiculo import validator
-from .Telas import telaListaVeiculos
+from .Telas import telaListaVeiculos, telaDetalhesVeiculo, telaVerificaVeiculo
 
 class telaVeiculo(AbstractTela):
 
@@ -14,25 +14,10 @@ class telaVeiculo(AbstractTela):
         tela_veiculo.show()
         tela_veiculo.close()
 
-
-
     def detalhes_veiculo(self, veiculo):
-        detalhes_vel = []
-        detalhes_vel.append((f'Veiculo - {veiculo.placa}'))
-        detalhes_vel.append((f'Modelo: {veiculo.modelo}'))
-        detalhes_vel.append((f'Marca: {veiculo.marca}'))
-        detalhes_vel.append((f'Ano: {veiculo.ano}'))
-        detalhes_vel.append((f'Kilometragem: {veiculo.km}'))
-
-        layout_detalhes_vel2 = [
-            [sg.Text('Detalhes do veículo:')],
-            [sg.Text('*'*15)],
-            [sg.Text(detalhes_vel)],
-            [sg.Button('Sair')]
-        ]
-        tela_detalhes_vel2 = sg.Window('Detalhes do veículo').layout(layout_detalhes_vel2)
-        tela_detalhes_vel2.Read()
-        tela_detalhes_vel2.Close()
+        tela_detalhes = telaDetalhesVeiculo(veiculo)
+        tela_detalhes.show()
+        tela_detalhes.close()
 
     def adiciona_veiculo(self):
         print('*' * 30)
@@ -59,15 +44,10 @@ class telaVeiculo(AbstractTela):
         return veic
 
     def verifica_veiculo(self):
-        layout_detalhes_vel1 = [
-            [sg.Text('Digite a placa do veículo:')],
-            [sg.Input()],
-            [sg.Button('Buscar')]
-        ]
-        tela_detalhes_vel1 = sg.Window('Detalhes do veículo').layout(layout_detalhes_vel1)
-        botao, detalhe = tela_detalhes_vel1.Read()
+        tela_verificacao = telaVerificaVeiculo()
+        botao, detalhe = tela_verificacao.Read()
         placa = detalhe[0]
-        tela_detalhes_vel1.Close()
+        tela_verificacao.close()
         return placa
 
     def remove_veiculo(self, veiculo):

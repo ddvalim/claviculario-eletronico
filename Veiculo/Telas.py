@@ -14,3 +14,31 @@ class telaListaVeiculos(AbstractTela):
                 [sg.Text(f'placa: {veiculo.placa} - marca: {veiculo.marca} - modelo: {veiculo.modelo}\n')])
         layout_tela_vel.append([sg.Button('Voltar')])
         self.window.Layout(layout_tela_vel)
+
+class telaDetalhesVeiculo(AbstractTela):
+    def __init__(self, veiculo):
+        detalhes_vel = ''
+        detalhes_vel += ((f'Veiculo - {veiculo.placa}\n'))
+        detalhes_vel += ((f'Modelo: {veiculo.modelo}\n'))
+        detalhes_vel += ((f'Marca: {veiculo.marca}\n'))
+        detalhes_vel += ((f'Ano: {veiculo.ano}\n'))
+        detalhes_vel += ((f'Kilometragem: {veiculo.km}'))
+
+        layout_detalhes_vel2 = [
+            [sg.Text('Detalhes do veículo:')],
+            [sg.Text('*' * 15)],
+            [sg.Text(detalhes_vel)],
+            [sg.Button('Sair')]
+        ]
+        self.window = sg.Window('Detalhes do veículo')
+        self.window.layout(layout_detalhes_vel2)
+
+class telaVerificaVeiculo(AbstractTela):
+    def __init__(self):
+        self.window = sg.Window('Verificação de veículo')
+        layout_detalhes_vel1 = [
+            [sg.Text('Digite a placa do veículo:')],
+            [sg.Input()],
+            [sg.Button('Buscar')]
+        ]
+        self.window.Layout(layout_detalhes_vel1)
