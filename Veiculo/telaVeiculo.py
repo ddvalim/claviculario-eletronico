@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 from Abstracts.abs_tela import AbstractTela
 from .Veiculo import Veiculo
 from Validators.Veiculo import validator
-
+from .Telas import telaListaVeiculos
 
 class telaVeiculo(AbstractTela):
 
@@ -10,17 +10,11 @@ class telaVeiculo(AbstractTela):
         self.__validator = validator
 
     def lista_veiculos(self, veiculos):
-        layout_tela_vel = [
-            [sg.Text('Lista de veículos cadastrados')],
-            [sg.Text('*'*30)],
-        ]
-        for veiculo in veiculos:
-            layout_tela_vel.append([sg.Text(f'placa: {veiculo.placa} - marca: {veiculo.marca} - modelo: {veiculo.modelo}\n')])
-        layout_tela_vel.append([sg.Button('Sair')])
+        tela_veiculo = telaListaVeiculos(veiculos)
+        tela_veiculo.show()
+        tela_veiculo.close()
 
-        tela_lista_vel = sg.Window('Lista Veículos').layout(layout_tela_vel)
-        tela_lista_vel.Read()
-        tela_lista_vel.Close()
+
 
     def detalhes_veiculo(self, veiculo):
         detalhes_vel = []
