@@ -45,7 +45,7 @@ class telaVeiculo(AbstractTela):
 
     def verifica_veiculo(self):
         tela_verificacao = telaVerificaVeiculo()
-        botao, detalhe = tela_verificacao.Read()
+        botao, detalhe = tela_verificacao.show()
         placa = detalhe[0]
         tela_verificacao.close()
         return placa
