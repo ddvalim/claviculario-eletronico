@@ -6,13 +6,14 @@ class MenuFuncionario(AbstractTela):
     def __init__(self):
         self.window = Window('Menu Funcionários').layout(
             [
-                [Text('Adicionar funcionário'), Button('0')],
-                [Text('Remover funcionário'), Button('1')],
-                [Text('Atualizar funcionário'), Button('2')],
-                [Text('Obter funcionários cadastrados'), Button('3')],
-                [Text('Detalhes do funcionário'), Button('4')],
-                [Text('Adicionar veículo à funcionário'), Button('5')],
-                [Text('Remover veículo de funcionário'), Button('6')],
+                [Text('O que você deseja fazer?')],
+                [Text('0 - Adicionar funcionário'), Button('0')],
+                [Text('1 - Remover funcionário'), Button('1')],
+                [Text('2 - Atualizar funcionário'), Button('2')],
+                [Text('3 - Obter funcionários cadastrados'), Button('3')],
+                [Text('4 - Atualizar veículo'), Button('4')],
+                [Text('5 - Adicionar veículo à funcionário'), Button('5')],
+                [Text('6 - Remover veículo de funcionário'), Button('6')],
                 [Button('Voltar')]
             ]
         )

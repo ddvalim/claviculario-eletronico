@@ -4,6 +4,7 @@ from MovimentoVeiculo.ControleMovimentacao import ControleMovimentacao
 from .TelaPrincipal import TelaPrincipal
 from .Telas.MenuFuncionario import MenuFuncionario
 from Veiculo.telaVeiculo import telaVeiculo
+from .Telas.MenuVeiculo import MenuVeiculo
 
 
 class ControlePrincipal:
@@ -18,6 +19,8 @@ class ControlePrincipal:
             tela_principal = TelaPrincipal()
             tela_veiculo = telaVeiculo()
             menu_funcionario = MenuFuncionario()
+            menu_veiculo = MenuVeiculo()
+
 
             opcao, _ = tela_principal.show()
             tela_principal.close()
@@ -46,8 +49,8 @@ class ControlePrincipal:
 
                 elif opcao == '1':
 
-                    reopcao, _ = tela_veiculo.show()
-                    tela_veiculo.close()
+                    reopcao, _ = menu_veiculo.show()
+                    menu_veiculo.close()
 
                     if reopcao == '0':
                         self.__controle_veiculo.lista_veiculos()
