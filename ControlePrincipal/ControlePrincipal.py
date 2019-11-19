@@ -46,7 +46,7 @@ class ControlePrincipal:
 
                 elif opcao == '1':
 
-                    reopcao, var2 = tela_veiculo.show()
+                    reopcao, _ = tela_veiculo.show()
                     tela_veiculo.close()
 
                     if reopcao == '0':
@@ -60,6 +60,7 @@ class ControlePrincipal:
                     elif reopcao == '4':
                         self.__controle_veiculo.atualiza_veiculo()
 
+
                 elif opcao == '2':
                     print('*' * 30)
                     print('0 - Filtrar movimentação')
@@ -68,7 +69,7 @@ class ControlePrincipal:
                     print('3 - Devolver veículo')
                     print('*' * 30)
 
-                    reopcao = None
+                    reopcao, _ = None
 
                     if reopcao == '0':
                         self.__controle_movimentacao.filtra_movimentacoes()
