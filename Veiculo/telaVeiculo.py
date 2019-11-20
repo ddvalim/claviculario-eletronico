@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 from Abstracts.abs_tela import AbstractTela
 from .Veiculo import Veiculo
 from Validators.Veiculo import validator
-from .Telas import telaListaVeiculos, telaDetalhesVeiculo, telaVerificaVeiculo
+from .Telas import telaListaVeiculos, telaDetalhesVeiculo, telaVerificaVeiculo, telaAtualizaKm
 
 class telaVeiculo(AbstractTela):
 
@@ -58,18 +58,13 @@ class telaVeiculo(AbstractTela):
             b = self.excecao('Ação cancelada')
 
     def atualiza_km(self):
-        #Eh preciso implementar uma tela aqui?
         while True:
-            print('*' * 30)
-            print('Informe a kilometragem rodada do Veiculo: ')
-            print('Ex: 12.7')
-            print('*' * 30)
-            val = input()
-
+            tela_atualiza_km = telaAtualizaKm()
+            _, km = tela_atualiza_km.show()
             try:
-                return float(val)
+                return km(val)
             except ValueError:
-                self.excecao('Valor inválido para kilometragem tente novamente')
+                self.excecao('Valor inválido para kilometragem, tente novamente')
         
 
     def atualiza_veiculo(self, veiculo:Veiculo):        

@@ -42,3 +42,14 @@ class telaVerificaVeiculo(AbstractTela):
             [sg.Button('Buscar')]
         ]
         self.window.Layout(layout_detalhes_vel1)
+
+class telaAtualizaKm(AbstractTela):
+    def __init__(self):
+        self.window = sg.Window('Atualização de kilometragem')
+        layout_atualiza_km = [
+            [sg.Text('Informe a kilometragem rodada com o veículo:')],
+            [sg.Text('Exemplo: 12.7')],
+            [sg.Input()],
+            [sg.Button('Atualizar')]
+        ]
+        self.window.Layout(layout_atualiza_km)
