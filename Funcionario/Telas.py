@@ -47,3 +47,23 @@ class DetalhesDoFuncionario(AbstractTela):
         layout += fields_out_of_validator
         layout.append([Button('Voltar')])
         self.window.layout(layout)
+
+class AdicionaFuncionario(AbstractTela):
+    def __init__(self, field):
+        self.__validator = validator
+        self.window = Window('Adiciona funcionário')
+        layout = [
+            [Text(f'Informe o/a {field} do funcionário:'), Input(key=field)],
+            [Button('Ok!')]
+        ]
+        self.window.layout(layout)
+
+class AtualizaFuncionario(AbstractTela):
+    def __init__(self, field, value):
+        self.__validator = validator
+        self.window = Window('Atualiza funcionário')
+        layout = [
+            [Text(f'Informe o/a {field} do funcionário:'), Input(key=field, default_text=value)],
+            [Button('Ok!'), Button('Manter')]
+        ]
+        self.window.layout(layout)

@@ -54,7 +54,7 @@ class ControleFuncionarios():
 
     def deleta_funcionario(self):
         func = self.autentica_funcionario()
-        if func is not None and self.__tela_funcionarios.deleta_funcionario(func):
+        if func is not None and 's' in self.__tela_funcionarios.confirmacao(f'Tem certeza que deseja exclui o funcionário com matrícula :{func.matricula}')[0].lower():
             del self.__funcionarios[func.matricula]
             self.__adiciona_ao_banco()
             self.__tela_funcionarios.sucesso('deleção de funcionário')
@@ -67,7 +67,11 @@ class ControleFuncionarios():
 
     def adiciona_veiculo_funcionario(self):
         func = self.autentica_funcionario()
+        if func is None:
+            return self.excecao('Não existe funcionário com essa matrícula')
         veiculo = self.__controle_veiculo.verifica_veiculo()
+        if veiculo is None:
+            return self.excecao('Não existe veiculo com essa placa')
         func.adiciona_veiculo_cadastrado(veiculo)
         self.__adiciona_ao_banco()
         self.__tela_funcionarios.sucesso('adição de veiculo ao funcionário')
