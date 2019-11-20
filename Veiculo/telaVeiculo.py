@@ -73,7 +73,7 @@ class telaVeiculo(AbstractTela):
                 invalid = True
                 represent = k if k != 'km' else 'kilometragem'
                 while invalid:
-                    tela_atualiza_vel = telaAtualizaVeiculo(represent)
+                    tela_atualiza_vel = telaAtualizaVeiculo(represent, getattr(veiculo, k))
                     botao, dicionario = tela_atualiza_vel.show()
                     tela_atualiza_vel.close()
                     inpu = dicionario['inpu']

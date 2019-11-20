@@ -71,11 +71,11 @@ class telaAdicionaVeiculo(AbstractTela):
 
 
 class telaAtualizaVeiculo(AbstractTela):
-    def __init__(self, represent):
+    def __init__(self, represent, value):
         self.window = sg.Window('Atualizar veículo')
         layout_atualiza_vel = [
             [sg.Text(f'Informe o/a {represent} do veiculo:')],
-            [sg.Input(key='inpu')],
+            [sg.Input(key='inpu', default_text=value)],
             [sg.Button('Atualizar'), sg.Button('Manter')]
         ]
         self.window.Layout(layout_atualiza_vel)
