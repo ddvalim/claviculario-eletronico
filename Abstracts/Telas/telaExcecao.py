@@ -7,6 +7,6 @@ class TelaExcecao(AbstractTela):
         layout = [
             [sg.Text('Ocorreu uma exceção ao executar o programa: ')],
             [sg.Text(message)],
-            [sg.Button('Voltar ao menu Principal')]
+            [sg.Button('Voltar')]
         ]
         self.window = sg.Window('Erro').layout(layout)

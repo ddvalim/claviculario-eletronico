@@ -19,22 +19,21 @@ class telaVeiculo(AbstractTela):
         tela_detalhes.show()
         tela_detalhes.close()
 
-
     def adiciona_veiculo(self):
-        print('*' * 30)
-        print('Adicionando veículo...')
-        print('*' * 30)
         veic = {}
         for k in self.__validator.keys():
             invalid = True
             represent = k if k != 'km' else 'kilometragem'
             while invalid:
-                print(f'Informe o/a {represent} do veiculo:')
-                inpu = input()
+                tela_adiciona_vel = telaAdicionaVeiculo(represent)
+                botao, dicionario = tela_adiciona_vel.show()
+                tela_adiciona_vel.close()
+                inpu = dicionario['inpu']
+
                 try:
                     inpu = self.__validator[k](inpu)
                 except Exception:
-                    print('valor inválido para o campo')
+                    self.excecao('Valor inválido para o campo')
                 if isinstance(inpu, self.__validator[k]):
                     if self.__validator[k] == str:
                         if len(inpu) != 0:
@@ -66,7 +65,6 @@ class telaVeiculo(AbstractTela):
                 return float(km)
             except ValueError:
                 self.excecao('Valor inválido para kilometragem, tente novamente')
-        
 
     def atualiza_veiculo(self, veiculo:Veiculo):        
         veic = {}
