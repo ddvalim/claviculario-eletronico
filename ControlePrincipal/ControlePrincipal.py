@@ -5,6 +5,7 @@ from .TelaPrincipal import TelaPrincipal
 from .Telas.MenuFuncionario import MenuFuncionario
 from Veiculo.telaVeiculo import telaVeiculo
 from .Telas.MenuVeiculo import MenuVeiculo
+from .Telas.MenuMovimentacao import MenuMovimentacao
 
 
 class ControlePrincipal:
@@ -17,9 +18,9 @@ class ControlePrincipal:
     def inicializar(self):
         while True:
             tela_principal = TelaPrincipal()
-            tela_veiculo = telaVeiculo()
             menu_funcionario = MenuFuncionario()
             menu_veiculo = MenuVeiculo()
+            menu_movimentacao = MenuMovimentacao() 
 
 
             opcao, _ = tela_principal.show()
@@ -65,14 +66,10 @@ class ControlePrincipal:
 
 
                 elif opcao == '2':
-                    print('*' * 30)
-                    print('0 - Filtrar movimentação')
-                    print('1 - Obter relatório por tipo')
-                    print('2 - Retirar veículo')
-                    print('3 - Devolver veículo')
-                    print('*' * 30)
 
-                    reopcao, _ = None
+
+                    reopcao, _ = menu_movimentacao.show()
+                    menu_movimentacao.close()
 
                     if reopcao == '0':
                         self.__controle_movimentacao.filtra_movimentacoes()

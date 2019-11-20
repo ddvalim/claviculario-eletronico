@@ -68,20 +68,24 @@ class ControleFuncionarios():
     def adiciona_veiculo_funcionario(self):
         func = self.autentica_funcionario()
         if func is None:
-            return self.excecao('Não existe funcionário com essa matrícula')
+            return self.__tela_funcionarios.excecao('Não existe funcionário com essa matrícula')
         veiculo = self.__controle_veiculo.verifica_veiculo()
         if veiculo is None:
-            return self.excecao('Não existe veiculo com essa placa')
+            return self.__tela_funcionarios.excecao('Não existe veiculo com essa placa')
         func.adiciona_veiculo_cadastrado(veiculo)
         self.__adiciona_ao_banco()
-        self.__tela_funcionarios.sucesso('adição de veiculo ao funcionário')
+        self.__tela_funcionarios.sucesso('Adição de veiculo ao funcionário')
 
     def deleta_veiculo_funcionario(self):
         func = self.autentica_funcionario()
+        if func is None:
+            return self.__tela_funcionarios.excecao('Não existe funcionário com essa matrícula')
         veiculo = self.__controle_veiculo.verifica_veiculo()
+        if veiculo is None:
+            return self.__tela_funcionarios.excecao('Não existe veiculo com essa placa')
         func.remove_veiculo_cadastrado(veiculo)
         self.__adiciona_ao_banco()
-        self.__tela_funcionarios.sucesso('deleção de veiculo ao funcionário')
+        self.__tela_funcionarios.sucesso('Deleção de veiculo ao funcionário')
 
     def detalhes_do_funcionario(self):
         func = self.autentica_funcionario()

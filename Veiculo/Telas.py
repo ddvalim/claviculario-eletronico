@@ -53,7 +53,7 @@ class telaAtualizaKm(AbstractTela):
         layout_atualiza_km = [
             [sg.Text('Informe a kilometragem rodada com o veículo:')],
             [sg.Text('Exemplo: 12.7')],
-            [sg.Input()],
+            [sg.Input(key='km')],
             [sg.Button('Atualizar')]
         ]
         self.window.Layout(layout_atualiza_km)

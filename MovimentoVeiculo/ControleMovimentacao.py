@@ -59,7 +59,7 @@ class ControleMovimentacao():
             retiradas = []
             devolucoes = [] 
             for moviment in self.__movimentacoes:
-                if moviment.veiculo.placa == veiculo.placa and moviment.motivo_negacao is None:
+                if moviment.veiculo is not None and moviment.veiculo.placa == veiculo.placa and moviment.motivo_negacao is None:
                     if moviment.tipo == 0  :
                         retiradas.append(moviment)
                     else:
@@ -102,7 +102,7 @@ class ControleMovimentacao():
             date_latest = datetime.datetime(1970, 1, 1)
             mov_latest = None
             for moviment in self.__movimentacoes:
-                if moviment.veiculo.placa == veiculo.placa and moviment.motivo_negacao is None:
+                if moviment.veiculo is not None and moviment.veiculo.placa == veiculo.placa and moviment.motivo_negacao is None:
                     if date_latest < moviment.data:
                         date_latest = moviment.data
                         mov_latest = moviment
@@ -152,13 +152,17 @@ class ControleMovimentacao():
                     movimentacoes.append(mov) 
         elif filtros == 2:
             func = self.__controle_funcionarios.autentica_funcionario()
+            if func is None:
+                return self.__tela_movimentacoes.excecao('Não existe funcionário com essa matrícula')
             for mov in self.__movimentacoes:
-                if mov.funcionario.matricula == func.matricula:
+                if mov.funcionario is not None and mov.funcionario.matricula == func.matricula:
                     movimentacoes.append(mov) 
         elif filtros == 3:
             veic = self.__controle_veiculo.verifica_veiculo()
+            if veic is None:
+                return self.__tela_movimentacoes.excecao('Não existe veiculo com essa placa')
             for mov in self.__movimentacoes:
-                if mov.veiculo.placa == veic.placa:
+                if mov.veiculo is not None and mov.veiculo.placa == veic.placa:
                     movimentacoes.append(mov)
         self.__tela_movimentacoes.relatorio(movimentacoes) 
             

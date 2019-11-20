@@ -1,21 +1,14 @@
 from Abstracts.abs_tela import AbstractTela
+from .Telas import FiltraMovimentacao, FiltraMotivoDeNegacao, Relatorio, AcessosPorTipo
 
 class TelaMovimentacoes(AbstractTela):
     def filtra_movimentacoes(self):
-        print('*'*30)
-        print('Deseja adicionar algum filtro?')
-        print('1 - motivo de negação')
-        print('2 - matrícula do funcionário')
-        print('3 - placa do carro')
-        print('Pressione enter se não deseja adicionar nenhum filtro')
-        print('*'*30)
-        try:
-            val = input()
-            if val == '':
-                return None
-            res = int(val)
-        except Exception:
-            self.excecao('Valor Inválido')
+        tela= FiltraMovimentacao()
+        val, _ = tela.show()
+        tela.close()
+        if val == '4':
+            return None
+        res = int(val)
         dict_value = {
             1: self.filtra_motivo_de_negacao
         }
@@ -24,52 +17,22 @@ class TelaMovimentacoes(AbstractTela):
             ret = dict_value[res]()
         else:
             ret = res
-        return(ret)
+        return ret
 
     def filtra_motivo_de_negacao(self):
-        invalid = True
-        while invalid:
-            print('1 - Funcionário bloqueado')
-            print('2 - Veiculo inválido')
-            print('3 - Veiculo já retirado')
-            print('4 - Veiculo já devolvido')
-            print('5 - Funcionário não retirou e tentou devolver um Veiculo')
-            try:
-                filtro = int(input())
-            except ValueError:
-                self.excecao('Valor inválido')
-            if filtro in range(1,6):
-                invalid = False        
-        return { 1: filtro }
+        tela = FiltraMotivoDeNegacao()
+        value, _ = tela.show()
+        tela.close() 
+        return { 1: int(value) }
     
     def acessos_por_tipo(self):
-        print('*'*30)
-        print('Infore um tipo de acesso:')
-        print('1 - acessos negados')
-        print('2 - acessos permitidos')
-        print('outro caractere - todos os acessos')
-        print('*'*30)
-        return input()
+        tela = AcessosPorTipo()
+        value, _ = tela.show()
+        tela.close()
+        return value
         
 
     def relatorio(self, movimentacoes):
-        print('Movimentações:')
-
-        for mov in movimentacoes:
-            print('*'*30)
-            print(f'Veiculo - {mov.veiculo.placa}') if mov.veiculo is not None else None
-            print(f'Funcionario - {mov.funcionario.matricula} - {mov.funcionario.nome}')
-            print(f'Data - {str(mov.data)}')
-            switcher = {
-                0: 'Retirada',
-                1: 'Devolução'
-            }
-            print(f'Tipo - {switcher[mov.tipo]}')
-            motivo_negacao = {
-                1: 'Funcionario bloqueado',
-                2: 'Veiculo Inválido',
-                3: 'Veiculo já retirado',
-                4: 'Veiculo já devolvido',
-                5: 'Funcionário não retirou e tentou devolver um Veiculo'
-            }
-            print(f'Motivo Negacao - {motivo_negacao[mov.motivo_negacao]}') if mov.motivo_negacao is not None else None
+        tela = Relatorio(movimentacoes)
+        tela.show()
+        tela.close()
