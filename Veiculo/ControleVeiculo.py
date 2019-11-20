@@ -63,7 +63,7 @@ class ControleVeiculo:
 
     def deleta_veiculo(self):
         veiculo = self.verifica_veiculo()
-        if veiculo is not None and self.__tela_veiculo.remove_veiculo(veiculo):
+        if veiculo is not None and 's' in self.__tela_veiculo.confirmacao(f'Tem certeza que deseja deletar o veiculo -> {veiculo.placa}?')[0].lower():
             del self.__veiculos_cadastrados[veiculo.placa]
             self.__tela_veiculo.sucesso('deleção de veiculo')
 
