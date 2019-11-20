@@ -60,7 +60,7 @@ class telaAtualizaKm(AbstractTela):
 
 
 class telaAdicionaVeiculo(AbstractTela):
-    def __init__(self):
+    def __init__(self, represent):
         self.window = sg.Window('Adicionar veículo')
         layout_adiciona_vel = [
             [sg.Text(f'Informe o/a {represent} do veiculo:')],

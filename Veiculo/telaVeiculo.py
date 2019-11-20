@@ -4,8 +4,8 @@ from .Veiculo import Veiculo
 from Validators.Veiculo import validator
 from .Telas import telaListaVeiculos, telaDetalhesVeiculo, telaVerificaVeiculo, telaAtualizaKm, telaAdicionaVeiculo
 
-class telaVeiculo(AbstractTela):
 
+class telaVeiculo(AbstractTela):
     def __init__(self):
         self.__validator = validator
 
@@ -21,20 +21,18 @@ class telaVeiculo(AbstractTela):
 
 
     def adiciona_veiculo(self):
+        print('*' * 30)
+        print('Adicionando veículo...')
+        print('*' * 30)
         veic = {}
         for k in self.__validator.keys():
             invalid = True
             represent = k if k != 'km' else 'kilometragem'
             while invalid:
-                # print(f'Informe o/a {represent} do veiculo:')
-                # inpu = input()
-
-                tela_adiciona_vel = telaAdicionaVeiculo
-                tela_adiciona_vel.show()
-                print(tela_adiciona_vel.show())
-
+                print(f'Informe o/a {represent} do veiculo:')
+                inpu = input()
                 try:
-                    tela_adiciona_vel[inpu] = self.__validator[k](inpu)
+                    inpu = self.__validator[k](inpu)
                 except Exception:
                     print('valor inválido para o campo')
                 if isinstance(inpu, self.__validator[k]):

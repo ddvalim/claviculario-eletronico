@@ -33,7 +33,7 @@ class ControleVeiculo:
         return self.__veiculos_cadastrados[placa] if placa in self.__veiculos_cadastrados.keys() else None
 
     def adiciona_veiculo(self):
-        vec = self.__tela_veiculo.adiciona_veiculo
+        vec = self.__tela_veiculo.adiciona_veiculo()
         placa = vec['placa']
         if placa not in self.__veiculos_cadastrados.keys():
             self.__veiculos_cadastrados[placa] = Veiculo(**vec)
