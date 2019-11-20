@@ -62,7 +62,7 @@ class telaVeiculo(AbstractTela):
             tela_atualiza_km = telaAtualizaKm()
             _, km = tela_atualiza_km.show()
             try:
-                return km(val)
+                return float(km)
             except ValueError:
                 self.excecao('Valor inválido para kilometragem, tente novamente')
         
