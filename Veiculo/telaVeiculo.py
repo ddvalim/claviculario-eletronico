@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 from Abstracts.abs_tela import AbstractTela
 from .Veiculo import Veiculo
 from Validators.Veiculo import validator
-from .Telas import telaListaVeiculos, telaDetalhesVeiculo, telaVerificaVeiculo, telaAtualizaKm, telaAdicionaVeiculo
+from .Telas import telaListaVeiculos, telaDetalhesVeiculo, telaVerificaVeiculo, telaAtualizaKm, telaAdicionaVeiculo, telaAtualizaVeiculo
 
 
 class telaVeiculo(AbstractTela):
@@ -73,24 +73,19 @@ class telaVeiculo(AbstractTela):
                 invalid = True
                 represent = k if k != 'km' else 'kilometragem'
                 while invalid:
-                    layout_atualiza_vel = [[sg.Text(f'{represent} do veiculo : {getattr(veiculo, k)}')]]
-                    layout_atualiza_vel.append([sg.Text(f'Informe o/a {represent} do veiculo:')])
-                    inpu = [sg.Input()]
-                    button = [sg.Button('Atualizar'), sg.Button('Manter')]
-                    layout_atualiza_vel.append(inpu)
-                    layout_atualiza_vel.append(button)
-                    janela = sg.Window('Atualiza veículo').layout(layout_atualiza_vel)
-                    janela.Read()
-                    janela.Close()
+                    tela_atualiza_vel = telaAtualizaVeiculo(represent)
+                    botao, dicionario = tela_atualiza_vel.show()
+                    tela_atualiza_vel.close()
+                    inpu = dicionario['inpu']
 
-                    if button[0] != 'Manter':
+                    if botao != 'Manter':
                         try:
                             inpu = self.__validator[k](inpu)
                         except Exception:
-                            invalido = [sg.Text('Valor invalido para o campo')]
-                            layout_atualiza_vel.append(invalido)
-                            janela.Read()
-                            janela.Close()
+                            self.excecao('Valor inválido para o campo')
+                            tela_atualiza_vel.show()
+                            tela_atualiza_vel.close()
+
                         if isinstance(inpu, self.__validator[k]):  
                             if self.__validator[k] == str:
                                 if len(inpu) != 0:
@@ -100,7 +95,5 @@ class telaVeiculo(AbstractTela):
                             veic[k] = inpu
                     else:
                         invalid = False
-                    #Quando ele chega no atributo ano ele entra em loop
-                    #Não está registrando as alterações
-                    #Não termina o processo
+
         return veic
