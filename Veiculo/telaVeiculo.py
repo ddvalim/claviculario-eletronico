@@ -2,10 +2,10 @@ import PySimpleGUI as sg
 from Abstracts.abs_tela import AbstractTela
 from .Veiculo import Veiculo
 from Validators.Veiculo import validator
-from .Telas import telaListaVeiculos, telaDetalhesVeiculo, telaVerificaVeiculo, telaAtualizaKm, telaAdicionaVeiculo
+from .Telas import telaListaVeiculos, telaDetalhesVeiculo, telaVerificaVeiculo, telaAtualizaKm, telaAdicionaVeiculo, telaAtualizaVeiculo
+
 
 class telaVeiculo(AbstractTela):
-
     def __init__(self):
         self.__validator = validator
 
@@ -19,24 +19,21 @@ class telaVeiculo(AbstractTela):
         tela_detalhes.show()
         tela_detalhes.close()
 
-
     def adiciona_veiculo(self):
         veic = {}
         for k in self.__validator.keys():
             invalid = True
             represent = k if k != 'km' else 'kilometragem'
             while invalid:
-                # print(f'Informe o/a {represent} do veiculo:')
-                # inpu = input()
-
-                tela_adiciona_vel = telaAdicionaVeiculo
-                tela_adiciona_vel.show()
-                print(tela_adiciona_vel.show())
+                tela_adiciona_vel = telaAdicionaVeiculo(represent)
+                botao, dicionario = tela_adiciona_vel.show()
+                tela_adiciona_vel.close()
+                inpu = dicionario['inpu']
 
                 try:
-                    tela_adiciona_vel[inpu] = self.__validator[k](inpu)
+                    inpu = self.__validator[k](inpu)
                 except Exception:
-                    print('valor inválido para o campo')
+                    self.excecao('Valor inválido para o campo')
                 if isinstance(inpu, self.__validator[k]):
                     if self.__validator[k] == str:
                         if len(inpu) != 0:
@@ -68,7 +65,6 @@ class telaVeiculo(AbstractTela):
                 return float(km)
             except ValueError:
                 self.excecao('Valor inválido para kilometragem, tente novamente')
-        
 
     def atualiza_veiculo(self, veiculo:Veiculo):        
         veic = {}
@@ -77,24 +73,19 @@ class telaVeiculo(AbstractTela):
                 invalid = True
                 represent = k if k != 'km' else 'kilometragem'
                 while invalid:
-                    layout_atualiza_vel = [[sg.Text(f'{represent} do veiculo : {getattr(veiculo, k)}')]]
-                    layout_atualiza_vel.append([sg.Text(f'Informe o/a {represent} do veiculo:')])
-                    inpu = [sg.Input()]
-                    button = [sg.Button('Atualizar'), sg.Button('Manter')]
-                    layout_atualiza_vel.append(inpu)
-                    layout_atualiza_vel.append(button)
-                    janela = sg.Window('Atualiza veículo').layout(layout_atualiza_vel)
-                    janela.Read()
-                    janela.Close()
+                    tela_atualiza_vel = telaAtualizaVeiculo(represent)
+                    botao, dicionario = tela_atualiza_vel.show()
+                    tela_atualiza_vel.close()
+                    inpu = dicionario['inpu']
 
-                    if button[0] != 'Manter':
+                    if botao != 'Manter':
                         try:
                             inpu = self.__validator[k](inpu)
                         except Exception:
-                            invalido = [sg.Text('Valor invalido para o campo')]
-                            layout_atualiza_vel.append(invalido)
-                            janela.Read()
-                            janela.Close()
+                            self.excecao('Valor inválido para o campo')
+                            tela_atualiza_vel.show()
+                            tela_atualiza_vel.close()
+
                         if isinstance(inpu, self.__validator[k]):  
                             if self.__validator[k] == str:
                                 if len(inpu) != 0:
@@ -104,7 +95,5 @@ class telaVeiculo(AbstractTela):
                             veic[k] = inpu
                     else:
                         invalid = False
-                    #Quando ele chega no atributo ano ele entra em loop
-                    #Não está registrando as alterações
-                    #Não termina o processo
+
         return veic
