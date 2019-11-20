@@ -2,6 +2,7 @@ import PySimpleGUI as sg
 from Validators.Veiculo import validator
 from Abstracts.AbsctractTela import AbstractTela
 
+
 class telaListaVeiculos(AbstractTela):
     def __init__(self, veiculos):
         self.window = sg.Window('Listar veículos')
@@ -14,6 +15,7 @@ class telaListaVeiculos(AbstractTela):
                 [sg.Text(f'placa: {veiculo.placa} - marca: {veiculo.marca} - modelo: {veiculo.modelo}\n')])
         layout_tela_vel.append([sg.Button('Voltar')])
         self.window.Layout(layout_tela_vel)
+
 
 class telaDetalhesVeiculo(AbstractTela):
     def __init__(self, veiculo):
@@ -33,6 +35,7 @@ class telaDetalhesVeiculo(AbstractTela):
         self.window = sg.Window('Detalhes do veículo')
         self.window.layout(layout_detalhes_vel2)
 
+
 class telaVerificaVeiculo(AbstractTela):
     def __init__(self):
         self.window = sg.Window('Verificação de veículo')
@@ -42,6 +45,7 @@ class telaVerificaVeiculo(AbstractTela):
             [sg.Button('Buscar')]
         ]
         self.window.Layout(layout_detalhes_vel1)
+
 
 class telaAtualizaKm(AbstractTela):
     def __init__(self):
@@ -53,3 +57,14 @@ class telaAtualizaKm(AbstractTela):
             [sg.Button('Atualizar')]
         ]
         self.window.Layout(layout_atualiza_km)
+
+
+class telaAdicionaVeiculo(AbstractTela):
+    def __init__(self):
+        self.window = sg.Window('Adicionar veículo')
+        layout_adiciona_vel = [
+            [sg.Text(f'Informe o/a {represent} do veiculo:')],
+            [sg.Input(key='inpu')],
+            [sg.Button('Próximo')]
+        ]
+        self.window.Layout(layout_adiciona_vel)

@@ -7,7 +7,7 @@ class AbstractTela(ABC):
         pass
 
     def show(self):
-        return  self.window.Read()
+        return self.window.Read()
 
 
     def close(self):

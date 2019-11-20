@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 from Abstracts.abs_tela import AbstractTela
 from .Veiculo import Veiculo
 from Validators.Veiculo import validator
-from .Telas import telaListaVeiculos, telaDetalhesVeiculo, telaVerificaVeiculo, telaAtualizaKm
+from .Telas import telaListaVeiculos, telaDetalhesVeiculo, telaVerificaVeiculo, telaAtualizaKm, telaAdicionaVeiculo
 
 class telaVeiculo(AbstractTela):
 
@@ -19,19 +19,22 @@ class telaVeiculo(AbstractTela):
         tela_detalhes.show()
         tela_detalhes.close()
 
+
     def adiciona_veiculo(self):
-        print('*' * 30)
-        print('Adicionando veículo...')
-        print('*' * 30)
         veic = {}
         for k in self.__validator.keys():
             invalid = True
             represent = k if k != 'km' else 'kilometragem'
             while invalid:
-                print(f'Informe o/a {represent} do veiculo:')
-                inpu = input()
+                # print(f'Informe o/a {represent} do veiculo:')
+                # inpu = input()
+
+                tela_adiciona_vel = telaAdicionaVeiculo
+                tela_adiciona_vel.show()
+                print(tela_adiciona_vel.show())
+
                 try:
-                    inpu = self.__validator[k](inpu)
+                    tela_adiciona_vel[inpu] = self.__validator[k](inpu)
                 except Exception:
                     print('valor inválido para o campo')
                 if isinstance(inpu, self.__validator[k]):
@@ -69,9 +72,6 @@ class telaVeiculo(AbstractTela):
 
     def atualiza_veiculo(self, veiculo:Veiculo):        
         veic = {}
-        print('*' * 30)
-        print('Atualizando veiculo...')
-        print('*' * 30)
         for k in self.__validator.keys():
             if k != 'placa':
                 invalid = True
