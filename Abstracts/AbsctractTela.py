@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-
+from Exceptions.VoltarMenuException import VoltarMenuException
 
 class AbstractTela(ABC):
     @abstractmethod
@@ -7,7 +7,10 @@ class AbstractTela(ABC):
         pass
 
     def show(self):
-        return self.window.Read()
+        button, value = self.window.Read()
+        if button is None:
+            raise VoltarMenuException()
+        return button, value
 
 
     def close(self):

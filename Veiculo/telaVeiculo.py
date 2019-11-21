@@ -26,7 +26,7 @@ class telaVeiculo(AbstractTela):
             represent = k if k != 'km' else 'kilometragem'
             while invalid:
                 tela_adiciona_vel = telaAdicionaVeiculo(represent)
-                botao, dicionario = tela_adiciona_vel.show()
+                _, dicionario = tela_adiciona_vel.show()
                 tela_adiciona_vel.close()
                 inpu = dicionario['inpu']
 
@@ -45,17 +45,10 @@ class telaVeiculo(AbstractTela):
 
     def verifica_veiculo(self):
         tela_verificacao = telaVerificaVeiculo()
-        botao, detalhe = tela_verificacao.show()
+        _, detalhe = tela_verificacao.show()
         placa = detalhe[0]
         tela_verificacao.close()
         return placa
-
-    def remove_veiculo(self, veiculo):
-        a = self.confirmacao(f'Tem certeza que deseja deletar o veiculo -> {veiculo.placa}?')
-        if a[0].lower() == 's':
-            b = self.sucesso('Veículo deletado com sucesso')
-        else:
-            b = self.excecao('Ação cancelada')
 
     def atualiza_km(self):
         while True:

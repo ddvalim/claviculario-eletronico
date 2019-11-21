@@ -16,9 +16,11 @@ class TelaFuncionarios(AbstractTela):
             represent = k if k != 'data_nascimento' else 'data de nascimento no formato aaaa-mm-dd'
             while invalid:
                 tela = AdicionaFuncionario(represent)
-                _, _dict = tela.show()
+                button, _dict = tela.show()
                 tela.close()
                 inpu = _dict[represent]
+                if button is None:
+                    return None
                 try:
                     inpu = self.__validator[k](
                         inpu) if self.__validator[k] != datetime.date else datetime.datetime.strptime(inpu, '%Y-%m-%d').date()
@@ -39,6 +41,8 @@ class TelaFuncionarios(AbstractTela):
     def autentica_funcionario(self):
         tela = TelaAutenticacao()
         botao, matricula = tela.show()
+        if botao is None:
+            return botao
         matricula = matricula['matricula']
         tela.close()
         return matricula
