@@ -50,7 +50,7 @@ class ControleFuncionarios():
     def atualiza_funcionario(self):
         func = self.autentica_funcionario()
         if func is None:
-            return
+            return self.__tela_funcionarios.excecao('Não existe funcionário com essa matrícula')
         dict_func = self.__tela_funcionarios.atualiza_funcionario(func)
         for k,v in dict_func.items():
             setattr(func, k, v)
@@ -61,7 +61,7 @@ class ControleFuncionarios():
     def deleta_funcionario(self):
         func = self.autentica_funcionario()
         if func is None:
-            return
+            return self.__tela_funcionarios.excecao('Não existe funcionário com essa matrícula')
         if 's' in self.__tela_funcionarios.confirmacao(f'Tem certeza que deseja exclui o funcionário com matrícula :{func.matricula}')[0].lower():
             del self.__funcionarios[func.matricula]
             self.__adiciona_ao_banco()
@@ -97,4 +97,6 @@ class ControleFuncionarios():
 
     def detalhes_do_funcionario(self):
         func = self.autentica_funcionario()
+        if func is None:
+            self.__tela_funcionarios.excecao('Não existe funcionário com essa matrícula')
         self.__tela_funcionarios.detalhes_do_funcionario(func)

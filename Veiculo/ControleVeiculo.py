@@ -39,6 +39,8 @@ class ControleVeiculo:
             self.__veiculos_cadastrados[placa] = Veiculo(**vec)
             self.__adiciona_ao_banco()
             self.__tela_veiculo.sucesso('adição de veiculo')
+        else:
+            self.__tela_veiculo.excecao('Já existe veículo com essa placa')
 
     def atualiza_veiculo(self):
         veiculo = self.verifica_veiculo()
@@ -63,7 +65,10 @@ class ControleVeiculo:
 
     def deleta_veiculo(self):
         veiculo = self.verifica_veiculo()
-        if veiculo is not None and 's' in self.__tela_veiculo.confirmacao(f'Tem certeza que deseja deletar o veiculo -> {veiculo.placa}?')[0].lower():
+        if veiculo is None:
+            return self.__tela_veiculo.excecao('Não existe veículo cadastrado com essa placa') 
+        if 's' in self.__tela_veiculo.confirmacao(f'Tem certeza que deseja deletar o veiculo -> {veiculo.placa}?')[0].lower():
             del self.__veiculos_cadastrados[veiculo.placa]
             self.__tela_veiculo.sucesso('deleção de veiculo')
+        
 
